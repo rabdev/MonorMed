@@ -79,8 +79,8 @@ public class UserMenu extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Calendar calendar = new Calendar();
-                    return calendar;
+                    Settings settings = new Settings();
+                    return settings;
                 case 1:
                     Profile profile = new Profile();
                     return profile;

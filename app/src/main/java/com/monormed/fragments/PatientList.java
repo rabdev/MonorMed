@@ -63,8 +63,10 @@ public class PatientList extends Fragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState ==RecyclerView.SCROLL_STATE_IDLE){
                     getActivity().findViewById(R.id.show_add).setVisibility(View.VISIBLE);
+                    getActivity().findViewById(R.id.add_container).setVisibility(View.GONE);
                 } else {
                     getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
+                    getActivity().findViewById(R.id.add_container).setVisibility(View.GONE);
                 }
                 super.onScrollStateChanged(recyclerView, newState);
             }

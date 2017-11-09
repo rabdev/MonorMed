@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -18,6 +19,7 @@ import com.monormed.fragments.AddPatient;
 import com.monormed.fragments.Calendar;
 import com.monormed.fragments.Login;
 import com.monormed.fragments.PatientList;
+import com.monormed.fragments.Settings;
 import com.monormed.fragments.UserMenu;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton show_add;
     LinearLayout add_container;
     ImageView hide_add, btn_exit, btn_profile, btn_addpatient;
+    EditText et_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         preferences = getPreferences(0);
         fragmentManager = getSupportFragmentManager();
 
-        if (preferences.getBoolean(Constants.IS_LOGGED_IN,true)){
-            setContentView(R.layout.activity_main);
+        if (preferences.getBoolean(Constants.IS_LOGGED_IN,true)) {
+                setContentView(R.layout.activity_main);
         } else {
             Login login = new Login();
             fragmentManager.beginTransaction()
@@ -51,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.home_tab);
         show_add = (FloatingActionButton) findViewById(R.id.show_add);
         add_container = (LinearLayout) findViewById(R.id.add_container);
+        et_search = (EditText) findViewById(R.id.et_search);
         hide_add = (ImageView) findViewById(R.id.hide_add);
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         btn_profile = (ImageView) findViewById(R.id.btn_profile);
         btn_addpatient = (ImageView) findViewById(R.id.btn_addpatient);
 
         add_container.setVisibility(View.GONE);
+        et_search.setActivated(false);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         homeviewPager.setAdapter(mSectionsPagerAdapter);
@@ -140,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
                     PatientList patientList = new PatientList();
                     return patientList;
                 case 2:
-                    Calendar calendar2 = new Calendar();
-                    return calendar2;
+                    Settings settings = new Settings();
+                    return settings;
                 default:
                     return null;
             }

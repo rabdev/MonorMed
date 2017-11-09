@@ -23,6 +23,8 @@
                 android:id="@+id/tab_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:orientation="horizontal"
@@ -42,6 +44,7 @@
                     android:tint="@color/colorGrey"/>
 
                 <EditText
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
