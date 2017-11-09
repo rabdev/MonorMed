@@ -26,19 +26,20 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingTop="6dp">
 
                 <ImageView
+                    android:id="@+id/btn_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingLeft="4dp"
                     android:layout_weight="4"
-                    android:src="@drawable/ic_profile"
-                    android:tint="@color/colorGrey"
-                    android:scaleY="1.1"
-                    android:scaleX="1.1"/>
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/ic_settings"
+                    android:tint="@color/colorGrey"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -49,16 +50,18 @@
                     android:paddingRight="16dp"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="6dp"
                     android:hint="Keresés"/>
 
                 <ImageView
+                    android:id="@+id/btn_exit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleY="0.7"
-                    android:scaleX="0.7"
+                    android:paddingRight="4dp"
                     android:layout_weight="4"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
                     android:src="@drawable/ic_exit"
                     android:tint="@color/colorGrey"/>
 
@@ -70,9 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabSelectedTextColor="@color/colorAccent"
-                app:tabTextColor="@color/colorPrimary" />
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@color/colorGrey" >
+            </android.support.design.widget.TabLayout>
 
 
 
@@ -92,8 +96,7 @@
         android:id="@+id/show_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:tint="@color/colorAccent"
+        android:tint="@color/colorGrey"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
@@ -107,8 +110,8 @@
         android:background="@color/colorPrimaryDark"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
