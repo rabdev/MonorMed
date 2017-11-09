@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#50c2b3</color>
     <color name="colorAccent">#50c2b3</color>
     <color name="colorGrey">#4d4d4d</color>
-    <color name = "colorBlack">#000000</color>
-    <color name = "colorBlue">#2d5685</color>
+    <color name ="colorBlack">#000000</color>
+    <color name ="colorBlue">#2d5685</color>
+    <color name ="colorBackground">#ECEFF1</color>
 </resources>

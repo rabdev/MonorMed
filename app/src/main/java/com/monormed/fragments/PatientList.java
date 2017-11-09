@@ -58,6 +58,18 @@ public class PatientList extends Fragment {
 
         loadJSON(pref.getString(Constants.UNIQUE_ID,""));
 
+        patientlist_rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState ==RecyclerView.SCROLL_STATE_IDLE){
+                    getActivity().findViewById(R.id.show_add).setVisibility(View.VISIBLE);
+                } else {
+                    getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
         patientlist_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -95,7 +107,6 @@ public class PatientList extends Fragment {
                 if(patientlist_refresh.isRefreshing()) {
                     patientlist_refresh.setRefreshing(false);
                 }
-
             }
 
             @Override

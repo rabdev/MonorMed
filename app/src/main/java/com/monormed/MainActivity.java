@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.monormed.fragments.AddPatient;
 import com.monormed.fragments.Calendar;
 import com.monormed.fragments.Login;
 import com.monormed.fragments.PatientList;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     FloatingActionButton show_add;
     LinearLayout add_container;
-    ImageView hide_add, btn_exit, btn_profile;
+    ImageView hide_add, btn_exit, btn_profile, btn_addpatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         hide_add = (ImageView) findViewById(R.id.hide_add);
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         btn_profile = (ImageView) findViewById(R.id.btn_profile);
+        btn_addpatient = (ImageView) findViewById(R.id.btn_addpatient);
 
         add_container.setVisibility(View.GONE);
 
@@ -103,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 startActivity(intent);
+            }
+        });
+
+        btn_addpatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddPatient addPatient = new AddPatient();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, addPatient, addPatient.getTag())
+                        .addToBackStack(null)
+                        .commit();
+                show_add.setVisibility(View.GONE);
             }
         });
 
