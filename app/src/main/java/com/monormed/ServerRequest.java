@@ -1,5 +1,6 @@
 package com.monormed;
 
+import com.monormed.datastreams.PatientList;
 import com.monormed.datastreams.User;
 
 /**
@@ -9,8 +10,8 @@ import com.monormed.datastreams.User;
 public class ServerRequest {
     private String operation;
     private User user;
-    /*private PatientList patient;
-    private UpComingList upComingList;
+    private PatientList patient;
+    /*private UpComingList upComingList;
     private Anamnezis anamnezis;
     private PatientLog patientLog;
     private Elojegyzes elojegy;
@@ -24,11 +25,11 @@ public class ServerRequest {
         this.user = user;
     }
 
-    /*public void setPatientList (PatientList patient) {
+    public void setPatientList (PatientList patient) {
         this.patient = patient;
     }
 
-    public void setUpComingList (UpComingList upComingList) {this.upComingList = upComingList;}
+    /*public void setUpComingList (UpComingList upComingList) {this.upComingList = upComingList;}
 
     public void setAnamnezis (Anamnezis anamnezis) {this.anamnezis=anamnezis;}
 

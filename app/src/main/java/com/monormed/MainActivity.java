@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.monormed.fragments.Calendar;
 import com.monormed.fragments.Login;
+import com.monormed.fragments.PatientList;
 import com.monormed.fragments.UserMenu;
 
 public class MainActivity extends AppCompatActivity {
@@ -122,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = new Calendar();
                     return calendar;
                 case 1:
-                    Calendar calendar1 = new Calendar();
-                    return calendar1;
+                    PatientList patientList = new PatientList();
+                    return patientList;
                 case 2:
                     Calendar calendar2 = new Calendar();
                     return calendar2;
