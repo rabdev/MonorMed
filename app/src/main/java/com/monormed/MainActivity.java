@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.monormed.fragments.AddEvent;
 import com.monormed.fragments.AddPatient;
 import com.monormed.fragments.Calendar;
 import com.monormed.fragments.Login;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     FloatingActionButton show_add;
     LinearLayout add_container;
-    ImageView hide_add, btn_exit, btn_profile, btn_addpatient;
+    ImageView hide_add, btn_exit, btn_profile, btn_addpatient, btn_addevent;
     EditText et_search;
 
     @Override
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         btn_profile = (ImageView) findViewById(R.id.btn_profile);
         btn_addpatient = (ImageView) findViewById(R.id.btn_addpatient);
+        btn_addevent= (ImageView) findViewById(R.id.btn_addevent);
 
         add_container.setVisibility(View.GONE);
         et_search.setActivated(false);
@@ -122,6 +124,18 @@ public class MainActivity extends AppCompatActivity {
                 AddPatient addPatient = new AddPatient();
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, addPatient, addPatient.getTag())
+                        .addToBackStack(null)
+                        .commit();
+                show_add.setVisibility(View.GONE);
+            }
+        });
+
+        btn_addevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddEvent addEvent = new AddEvent();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame,addEvent,addEvent.getTag())
                         .addToBackStack(null)
                         .commit();
                 show_add.setVisibility(View.GONE);

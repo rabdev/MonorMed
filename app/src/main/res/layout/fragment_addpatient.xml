@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/addpatient_frame"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/colorBackground"
     tools:context="com.monormed.fragments.AddPatient">
 
@@ -717,7 +719,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:tint="@color/colorBackground"
-            android:src="@drawable/ic_add_patient"/>
+            android:src="@drawable/ic_check"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

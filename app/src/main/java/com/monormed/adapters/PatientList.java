@@ -1,6 +1,8 @@
 package com.monormed.adapters;
 
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.monormed.Constants;
 import com.monormed.MainActivity;
 import com.monormed.R;
+import com.monormed.fragments.Patient;
 
 import java.util.ArrayList;
 
@@ -67,12 +70,13 @@ public class PatientList extends RecyclerView.Adapter<PatientList.ViewHolder> {
                     editor.putString(Constants.SZEMELY_ID, mypatientid);
                     editor.putString(Constants.SZEMELY_NEV, mypatientname);
                     editor.apply();
-                        /*Patient patient = new Patient();
+                        Patient patient = new Patient();
                         FragmentManager fragmentManager = ((FragmentActivity)v.getContext()).getSupportFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.content_frame, patient, patient.getTag())
                                 .addToBackStack("1")
-                                .commit();*/
+                                .commit();
+                        patient.setPatientData(mypatientname);
                 }
             });
 
