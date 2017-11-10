@@ -8,6 +8,7 @@ public class Constants {
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String IS_LOGGED_IN = "isLoggedIn";
+    public static final String FIRST_RUN="";
 
     public static final String NAME = "userName1";
     public static final String USERNAME = "username";

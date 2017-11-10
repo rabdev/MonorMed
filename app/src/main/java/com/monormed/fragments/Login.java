@@ -48,6 +48,7 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View login = inflater.inflate(R.layout.fragment_login,container,false);
+        getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
         initViews(login);
         return login;
     }

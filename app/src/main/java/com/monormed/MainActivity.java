@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = getPreferences(0);
         fragmentManager = getSupportFragmentManager();
+        if(!preferences.getString(Constants.FIRST_RUN,"").equals("true")){
+            firstRun();
+        }
+
 
         if (preferences.getBoolean(Constants.IS_LOGGED_IN,true)) {
                 setContentView(R.layout.activity_main);
@@ -52,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         homeviewPager = (ViewPager) findViewById(R.id.home_container);
         tabLayout = (TabLayout) findViewById(R.id.home_tab);
-        show_add = (FloatingActionButton) findViewById(R.id.show_add);
         add_container = (LinearLayout) findViewById(R.id.add_container);
+        show_add = (FloatingActionButton) findViewById(R.id.show_add);
         et_search = (EditText) findViewById(R.id.et_search);
         hide_add = (ImageView) findViewById(R.id.hide_add);
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         homeviewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(homeviewPager);
-        //setupTabIcons();
 
         show_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,5 +174,12 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void firstRun(){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.IS_LOGGED_IN,false);
+        editor.putString(Constants.FIRST_RUN,"true");
+        editor.apply();
     }
 }

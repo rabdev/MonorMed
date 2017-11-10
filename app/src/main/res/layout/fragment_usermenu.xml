@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/colorPrimary"
     tools:context="com.monormed.fragments.UserMenu">
 
@@ -18,7 +20,9 @@
             android:background="@color/colorPrimaryDark"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/colorGrey"></android.support.design.widget.TabLayout>
+            app:tabTextColor="@color/colorGrey">
+
+        </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/usermenu_container"

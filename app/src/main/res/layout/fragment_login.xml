@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
     android:paddingLeft="40dp"
     android:paddingRight="40dp"
     android:paddingTop="40dp"

@@ -40,6 +40,7 @@ public class UserMenu extends Fragment {
         // Inflate the layout for this fragment
         View usermenu = inflater.inflate(R.layout.fragment_usermenu, container, false);
         pref = getActivity().getPreferences(0);
+        getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
 
         usermenuviewPager = (ViewPager) usermenu.findViewById(R.id.usermenu_container);
         tabLayout = (TabLayout) usermenu.findViewById(R.id.usermenu_tab);
@@ -121,6 +122,7 @@ public class UserMenu extends Fragment {
                     // handle back button's click listener
                     getActivity().getSupportFragmentManager().popBackStack();
                     getActivity().findViewById(R.id.show_add).setVisibility(View.VISIBLE);
+                    getActivity().findViewById(R.id.add_container).setVisibility(View.GONE);
                     return true;
                 }
                 return false;
