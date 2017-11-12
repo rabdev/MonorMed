@@ -65,18 +65,19 @@ public class PatientList extends RecyclerView.Adapter<PatientList.ViewHolder> {
                 public void onClick(View v) {
                     String mypatientid = tv_my_patient_id.getText().toString();
                     String mypatientname = tv_my_patient_name.getText().toString();
-                    pref = ((MainActivity) v.getContext()).getPreferences(0);
+                    /*pref = ((MainActivity) v.getContext()).getPreferences(0);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString(Constants.SZEMELY_ID, mypatientid);
                     editor.putString(Constants.SZEMELY_NEV, mypatientname);
-                    editor.apply();
+                    editor.apply();*/
                         Patient patient = new Patient();
                         FragmentManager fragmentManager = ((FragmentActivity)v.getContext()).getSupportFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.content_frame, patient, patient.getTag())
                                 .addToBackStack("1")
                                 .commit();
-                        patient.setPatientData(mypatientname);
+                        patient.setPatientName(mypatientname);
+                        patient.setPatientID(mypatientid);
                 }
             });
 

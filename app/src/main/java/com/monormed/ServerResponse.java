@@ -1,6 +1,8 @@
 package com.monormed;
 
+import com.monormed.datastreams.Anamnezis;
 import com.monormed.datastreams.PatientList;
+import com.monormed.datastreams.PatientLog;
 import com.monormed.datastreams.UpComingList;
 import com.monormed.datastreams.User;
 
@@ -13,8 +15,8 @@ public class ServerResponse {
     private String message;
     private User user;
     private PatientList patient1;
-    /*private Anamnezis anamnezis;
-    private Elojegyzes elojegy;*/
+    private Anamnezis anamnezis;
+    //private Elojegyzes elojegy;
 
     public String getResult() {
         return result;
@@ -38,15 +40,15 @@ public class ServerResponse {
 
     public UpComingList [] getUpComingList(){return upComingList;}
 
-    /*public PatientList getPatient(){return patient1;}
-
-    public Anamnezis getAnamnezis(){return anamnezis;}
-
-    private PatientLog [] patientLog;
+    private PatientLog[] patientLog;
 
     public PatientLog [] getPatientLog(){return patientLog;}
 
-    public Elojegyzes getElojegy() {
+    public Anamnezis getAnamnezis(){return anamnezis;}
+
+    public PatientList getPatient(){return patient1;}
+
+    /*public Elojegyzes getElojegy() {
         return elojegy;
     }
 

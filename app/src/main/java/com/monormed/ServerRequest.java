@@ -1,6 +1,8 @@
 package com.monormed;
 
+import com.monormed.datastreams.Anamnezis;
 import com.monormed.datastreams.PatientList;
+import com.monormed.datastreams.PatientLog;
 import com.monormed.datastreams.UpComingList;
 import com.monormed.datastreams.User;
 
@@ -13,9 +15,9 @@ public class ServerRequest {
     private User user;
     private PatientList patient;
     private UpComingList upComingList;
-    /*private Anamnezis anamnezis;
     private PatientLog patientLog;
-    private Elojegyzes elojegy;
+    private Anamnezis anamnezis;
+    /*private Elojegyzes elojegy;
     private TajType tajType;*/
 
     public void setOperation(String operation) {
@@ -32,9 +34,13 @@ public class ServerRequest {
 
     public void setUpComingList (UpComingList upComingList) {this.upComingList = upComingList;}
 
-    /*public void setAnamnezis (Anamnezis anamnezis) {this.anamnezis=anamnezis;}
-
     public void setPatientLog (PatientLog patientLog) {this.patientLog=patientLog;}
+
+    public void setAnamnezis (Anamnezis anamnezis) {this.anamnezis=anamnezis;};
+
+    /*
+
+
 
     public void setElojegy(Elojegyzes elojegy) {this.elojegy = elojegy;}
 
