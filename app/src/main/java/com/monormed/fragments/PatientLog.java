@@ -3,6 +3,7 @@ package com.monormed.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class PatientLog extends Fragment {
     com.monormed.adapters.PatientLog adapter_plog;
     View patientlog;
     ProgressBar pl_progressbar;
+    FloatingActionButton patientlog_add;
 
 
     public PatientLog() {
@@ -60,6 +62,8 @@ public class PatientLog extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         pl_progressbar = (ProgressBar) patientlog.findViewById(R.id.pl_progressbar);
         patientlog_rv= (RecyclerView) patientlog.findViewById(R.id.patientlog_recyclerview);
+        patientlog_add = (FloatingActionButton) patientlog.findViewById(R.id.patientlog_add);
+
         patientlog_rv.setLayoutManager(layoutManager);
 
         if (getArguments().getInt("page")==0){
@@ -67,6 +71,19 @@ public class PatientLog extends Fragment {
             hideRVPL();
             loadJSON(szemely_id,Operations.PATIENT_LOG_DIAG);
         }
+
+        patientlog_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getArguments().getInt("page")==0){
+                    Toast.makeText(getContext(),"Diagnózis felvétele... Working on it...", Toast.LENGTH_LONG).show();
+                } else if (getArguments().getInt("page")==1){
+                    Toast.makeText(getContext(),"Anamnézis felvétele... Working on it...", Toast.LENGTH_LONG).show();
+                } else if (getArguments().getInt("page")==2){
+                    Toast.makeText(getContext(),"Lelet felvétele... Working on it...", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         return patientlog;
     }
