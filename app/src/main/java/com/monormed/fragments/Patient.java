@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.BaseInputConnection;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class Patient extends Fragment {
     PatientLog patientLog;
     Bundle data;
     int pos;
+    ImageView patient_back, patient_addevent, patient_addtest, patient_close_edit;
 
     public Patient() {
         // Required empty public constructor
@@ -60,6 +63,18 @@ public class Patient extends Fragment {
         patientviewPager = (ViewPager) patient.findViewById(R.id.patient_container);
         tabLayout = (TabLayout) patient.findViewById(R.id.patient_tab);
         tv_patient_name = (TextView) patient.findViewById(R.id.tv_patient_name);
+        patient_back = (ImageView) patient.findViewById(R.id.patient_back);
+        patient_addevent = (ImageView) patient.findViewById(R.id.patient_addevent);
+        patient_addtest = (ImageView) patient.findViewById(R.id.patient_addtest);
+        patient_close_edit = (ImageView) patient.findViewById(R.id.patient_close_edit);
+
+        patient_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseInputConnection mInputConnection = new BaseInputConnection(patient, true);
+                mInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+            }
+        });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         patientviewPager.setAdapter(mSectionsPagerAdapter);
@@ -86,6 +101,8 @@ public class Patient extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 pos =position;
+                patient_addevent.setVisibility(View.VISIBLE);
+                patient_addtest.setVisibility(View.VISIBLE);
             }
 
             @Override

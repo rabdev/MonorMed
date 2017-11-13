@@ -3,13 +3,16 @@ package com.monormed.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.monormed.Interface;
 import com.monormed.Operations;
@@ -34,7 +37,8 @@ public class PatientData extends Fragment {
     SharedPreferences pref;
     EditText szemelynev, taj, nem, szulido, szulhely, szulnev, anyja_neve, orszag, irszam, varos, utca, telefon, email, megjegyzes;
     LinearLayout cim_orszag;
-
+    FloatingActionButton patientdata_edit;
+    ImageView patient_edit_close;
 
     public PatientData() {
         // Required empty public constructor
@@ -45,10 +49,12 @@ public class PatientData extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View patientdata = inflater.inflate(R.layout.fragment_patientdata, container, false);
+        final View patientdata = inflater.inflate(R.layout.fragment_patientdata, container, false);
 
         pref = getActivity().getPreferences(0);
 
+        patient_edit_close = (ImageView) getParentFragment().getView().findViewById(R.id.patient_close_edit);
+        patientdata_edit = (FloatingActionButton) patientdata.findViewById(R.id.patientdata_edit);
         szemelynev = (EditText) patientdata.findViewById(R.id.patient_szemelynev);
         taj = (EditText) patientdata.findViewById(R.id.patient_taj);
         nem = (EditText) patientdata.findViewById(R.id.patient_nem);
@@ -63,6 +69,34 @@ public class PatientData extends Fragment {
         telefon = (EditText) patientdata.findViewById(R.id.patient_telefon);
         email = (EditText) patientdata.findViewById(R.id.patient_email);
         megjegyzes = (EditText) patientdata.findViewById(R.id.patient_megjegyzes);
+
+        patientdata_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(patient_edit_close.getVisibility()!=View.VISIBLE){
+                    patient_edit_close.setVisibility(View.VISIBLE);
+                    getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.GONE);
+                    getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.GONE);
+                    patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_save, getActivity().getTheme()));
+                } else {
+                    patient_edit_close.setVisibility(View.GONE);
+                    getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.VISIBLE);
+                    getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.VISIBLE);
+                    patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit, getActivity().getTheme()));
+                    Toast.makeText(getContext(), "Working on it...", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        patient_edit_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                patient_edit_close.setVisibility(View.GONE);
+                getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.VISIBLE);
+                patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit, getActivity().getTheme()));
+            }
+        });
 
         //szemelynev.setTag(szemelynev.getKeyListener());
         szemelynev.setKeyListener(null);

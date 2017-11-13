@@ -42,6 +42,7 @@
                     android:background="@android:color/transparent"
                     android:text="teszt"
                     android:textAlignment="viewEnd"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -51,12 +52,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textStyle="bold"
                     android:text="TAJ:"
                     android:textSize="18sp" />
 
@@ -68,14 +71,21 @@
                     android:background="@android:color/transparent"
                     android:text="123456789"
                     android:textAlignment="viewEnd"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@drawable/separator_line" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -414,4 +424,15 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/patientdata_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:src="@drawable/ic_edit"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:tint="@color/colorBackground"
+        app:backgroundTint="@color/colorBlue"/>
 </FrameLayout>

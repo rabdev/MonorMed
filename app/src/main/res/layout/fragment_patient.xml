@@ -16,23 +16,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBlue"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="6dp">
-
+            <ImageView
+                android:id="@+id/patient_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:tint="@color/colorBackground"/>
             <TextView
                 android:id="@+id/tv_patient_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingBottom="1dp"
-                android:paddingLeft="4dp"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="@color/colorBackground"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
-
+                android:textStyle="bold"
+                android:text="Teszt Elek"/>
+            <ImageView
+                android:id="@+id/patient_addtest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_test"
+                android:tint="@color/colorBackground"
+                android:layout_marginRight="4dp"/>
+            <ImageView
+                android:id="@+id/patient_addevent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_event"
+                android:tint="@color/colorBackground"
+                android:layout_marginRight="4dp"/>
+            <ImageView
+                android:id="@+id/patient_close_edit"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                android:tint="@color/colorBackground"
+                android:layout_marginRight="4dp"/>
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
