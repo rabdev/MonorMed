@@ -1,5 +1,6 @@
 package com.monormed;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
@@ -10,10 +11,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 
 import com.monormed.fragments.AddEvent;
 import com.monormed.fragments.AddPatient;
@@ -27,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     FragmentManager fragmentManager;
+    InputMethodManager imm;
     private ViewPager homeviewPager;
     private TabLayout tabLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     FloatingActionButton show_add;
-    LinearLayout add_container;
-    ImageView hide_add, btn_addpatient, btn_addevent;
+    LinearLayout add_container, search_container, header_container;
+    ImageView hide_add, btn_addpatient, btn_addevent, search_close, btn_search, btn_usermenu;
     EditText et_search;
 
     @Override
@@ -58,15 +63,20 @@ public class MainActivity extends AppCompatActivity {
         homeviewPager = (ViewPager) findViewById(R.id.home_container);
         tabLayout = (TabLayout) findViewById(R.id.home_tab);
         add_container = (LinearLayout) findViewById(R.id.add_container);
+        search_container = (LinearLayout) findViewById(R.id.search_container);
+        header_container = (LinearLayout) findViewById(R.id.header_container);
         show_add = (FloatingActionButton) findViewById(R.id.show_add);
         et_search = (EditText) findViewById(R.id.et_search);
         hide_add = (ImageView) findViewById(R.id.hide_add);
         btn_addpatient = (ImageView) findViewById(R.id.btn_addpatient);
         btn_addevent= (ImageView) findViewById(R.id.btn_addevent);
-
+        search_close = (ImageView) findViewById(R.id.close_search);
+        btn_search = (ImageView) findViewById(R.id.btn_search);
+        btn_usermenu = (ImageView) findViewById(R.id.user_menu);
         add_container.setVisibility(View.GONE);
         et_search.setActivated(false);
 
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         homeviewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(homeviewPager);
@@ -87,34 +97,64 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*btn_profile.setOnClickListener(new View.OnClickListener() {
+        btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                UserMenu userMenu = new UserMenu();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, userMenu, userMenu.getTag())
-                        .addToBackStack(null)
-                        .commit();
-                show_add.setVisibility(View.GONE);
+            public void onClick(View view) {
+                header_container.setVisibility(View.GONE);
+                search_container.setVisibility(View.VISIBLE);
+                et_search.requestFocus();
+                et_search.isActivated();
+                imm.showSoftInput(et_search, InputMethodManager.SHOW_IMPLICIT);
             }
         });
 
-        btn_exit.setOnClickListener(new View.OnClickListener() {
+        search_close.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(Constants.IS_LOGGED_IN,false);
-                editor.putString(Constants.USERNAME,"");
-                editor.putString(Constants.NAME,"");
-                editor.putString(Constants.UNIQUE_ID,"");
-                editor.putString(Constants.OSZTALY,"");
-                editor.apply();
-                Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                finish();
-                startActivity(intent);
+            public void onClick(View view) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                search_container.setVisibility(View.GONE);
+                header_container.setVisibility(View.VISIBLE);
+
             }
-        });*/
+        });
+
+        btn_usermenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu usermenu= new PopupMenu(MainActivity.this,btn_usermenu);
+                usermenu.getMenuInflater().inflate(R.menu.menu_user,usermenu.getMenu());
+                usermenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.action_settings:
+                                UserMenu userMenu = new UserMenu();
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, userMenu, userMenu.getTag())
+                                        .addToBackStack(null)
+                                        .commit();
+                                show_add.setVisibility(View.GONE);
+                                return true;
+                            case R.id.action_exit:
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(Constants.IS_LOGGED_IN,false);
+                                editor.putString(Constants.USERNAME,"");
+                                editor.putString(Constants.NAME,"");
+                                editor.putString(Constants.UNIQUE_ID,"");
+                                editor.putString(Constants.OSZTALY,"");
+                                editor.apply();
+                                Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                finish();
+                                startActivity(intent);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+            }
+        });
 
         btn_addpatient.setOnClickListener(new View.OnClickListener() {
             @Override
