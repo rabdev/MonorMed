@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     FloatingActionButton show_add;
     LinearLayout add_container;
-    ImageView hide_add, btn_exit, btn_profile, btn_addpatient, btn_addevent;
+    ImageView hide_add, btn_addpatient, btn_addevent;
     EditText et_search;
 
     @Override
@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         show_add = (FloatingActionButton) findViewById(R.id.show_add);
         et_search = (EditText) findViewById(R.id.et_search);
         hide_add = (ImageView) findViewById(R.id.hide_add);
-        btn_exit = (ImageView) findViewById(R.id.btn_exit);
-        btn_profile = (ImageView) findViewById(R.id.btn_profile);
         btn_addpatient = (ImageView) findViewById(R.id.btn_addpatient);
         btn_addevent= (ImageView) findViewById(R.id.btn_addevent);
 
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_profile.setOnClickListener(new View.OnClickListener() {
+        /*btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserMenu userMenu = new UserMenu();
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent);
             }
-        });
+        });*/
 
         btn_addpatient.setOnClickListener(new View.OnClickListener() {
             @Override

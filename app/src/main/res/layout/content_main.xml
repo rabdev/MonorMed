@@ -30,43 +30,64 @@
                 android:orientation="horizontal"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:paddingTop="6dp">
-
-                <ImageView
-                    android:id="@+id/btn_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="4dp"
-                    android:layout_weight="4"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    android:src="@drawable/ic_settings"
-                    android:tint="@color/colorGrey"/>
-
-                <EditText
-                    android:id="@+id/et_search"
+                android:paddingTop="2dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/search_background"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="6dp"
-                    android:hint="Keresés"/>
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="12dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Monormed"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="22sp"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_search"
+                        android:tint="@color/colorGrey"
+                        android:scaleY="0.75"
+                        android:scaleX="0.75"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_menu_more"
+                        android:tint="@color/colorGrey"
+                        android:scaleY="0.8"
+                        android:scaleX="0.8"/>
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/btn_exit"
+                <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingRight="4dp"
-                    android:layout_weight="4"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    android:src="@drawable/ic_exit"
-                    android:tint="@color/colorGrey"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="12dp">
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorGrey"
+                        android:layout_weight="1"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:hint="Keresés"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_close"
+                        android:tint="@color/colorPrimary"
+                        android:paddingRight="4dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"/>
+                </LinearLayout>
 
             </LinearLayout>
 

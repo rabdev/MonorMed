@@ -41,7 +41,7 @@ public class Patient extends Fragment {
     PatientLog patientLog;
     Bundle data;
     int pos;
-    ImageView patient_back, patient_addevent, patient_addtest, patient_close_edit;
+    ImageView patient_back, patient_addevent, patient_addtest, patient_close_edit, patient_save_edit;
 
     public Patient() {
         // Required empty public constructor
@@ -67,6 +67,7 @@ public class Patient extends Fragment {
         patient_addevent = (ImageView) patient.findViewById(R.id.patient_addevent);
         patient_addtest = (ImageView) patient.findViewById(R.id.patient_addtest);
         patient_close_edit = (ImageView) patient.findViewById(R.id.patient_close_edit);
+        patient_save_edit = (ImageView) patient.findViewById(R.id.patient_save_edit);
 
         patient_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +104,9 @@ public class Patient extends Fragment {
                 pos =position;
                 patient_addevent.setVisibility(View.VISIBLE);
                 patient_addtest.setVisibility(View.VISIBLE);
+                patient_back.setVisibility(View.VISIBLE);
+                patient_close_edit.setVisibility(View.GONE);
+                patient_save_edit.setVisibility(View.GONE);
             }
 
             @Override

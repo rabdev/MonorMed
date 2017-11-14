@@ -15,12 +15,15 @@
 
     <ProgressBar
         android:id="@+id/pl_progressbar"
+        style="@style/CustomProgressBar"
         android:visibility="gone"
-        style="@style/Base.Widget.AppCompat.ProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"/>
+        android:layout_gravity="top"
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"
+        android:progressTint="@color/colorBackground"
+        android:indeterminateTintMode="src_atop"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/patientlog_add"

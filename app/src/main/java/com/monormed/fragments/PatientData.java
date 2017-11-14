@@ -38,7 +38,7 @@ public class PatientData extends Fragment {
     EditText szemelynev, taj, nem, szulido, szulhely, szulnev, anyja_neve, orszag, irszam, varos, utca, telefon, email, megjegyzes;
     LinearLayout cim_orszag;
     FloatingActionButton patientdata_edit;
-    ImageView patient_edit_close;
+    ImageView patient_edit_close, patient_edit_save;
 
     public PatientData() {
         // Required empty public constructor
@@ -54,6 +54,7 @@ public class PatientData extends Fragment {
         pref = getActivity().getPreferences(0);
 
         patient_edit_close = (ImageView) getParentFragment().getView().findViewById(R.id.patient_close_edit);
+        patient_edit_save = (ImageView) getParentFragment().getView().findViewById(R.id.patient_save_edit);
         patientdata_edit = (FloatingActionButton) patientdata.findViewById(R.id.patientdata_edit);
         szemelynev = (EditText) patientdata.findViewById(R.id.patient_szemelynev);
         taj = (EditText) patientdata.findViewById(R.id.patient_taj);
@@ -73,18 +74,12 @@ public class PatientData extends Fragment {
         patientdata_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(patient_edit_close.getVisibility()!=View.VISIBLE){
-                    patient_edit_close.setVisibility(View.VISIBLE);
-                    getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.GONE);
-                    getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.GONE);
-                    patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_save, getActivity().getTheme()));
-                } else {
-                    patient_edit_close.setVisibility(View.GONE);
-                    getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.VISIBLE);
-                    getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.VISIBLE);
-                    patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit, getActivity().getTheme()));
-                    Toast.makeText(getContext(), "Working on it...", Toast.LENGTH_LONG).show();
-                }
+                patient_edit_close.setVisibility(View.VISIBLE);
+                patient_edit_save.setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.GONE);
+                getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.GONE);
+                getParentFragment().getView().findViewById(R.id.patient_back).setVisibility(View.GONE);
+                patientdata_edit.setVisibility(View.GONE);
             }
         });
 
@@ -92,9 +87,26 @@ public class PatientData extends Fragment {
             @Override
             public void onClick(View v) {
                 patient_edit_close.setVisibility(View.GONE);
+                patient_edit_save.setVisibility(View.GONE);
+                patientdata_edit.setVisibility(View.VISIBLE);
                 getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.VISIBLE);
                 getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_back).setVisibility(View.VISIBLE);
                 patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit, getActivity().getTheme()));
+            }
+        });
+
+        patient_edit_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                patient_edit_close.setVisibility(View.GONE);
+                patient_edit_save.setVisibility(View.GONE);
+                patientdata_edit.setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_addtest).setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_addevent).setVisibility(View.VISIBLE);
+                getParentFragment().getView().findViewById(R.id.patient_back).setVisibility(View.VISIBLE);
+                patientdata_edit.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit, getActivity().getTheme()));
+                Toast.makeText(getContext(), "Working on it...", Toast.LENGTH_LONG).show();
             }
         });
 
