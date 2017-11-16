@@ -39,9 +39,8 @@ public class UpComingList extends RecyclerView.Adapter<UpComingList.ViewHolder> 
     public void onBindViewHolder(final UpComingList.ViewHolder viewHolder, int i) {
 
         viewHolder.tv_upcoming_name.setText(android.get(i).getSzemely_nev());
-        viewHolder.tv_upcoming_date.setText(android.get(i).getElojegyzes_nap()+" "+android.get(i).getElojegyzes_ido());
+        viewHolder.tv_upcoming_date.setText(android.get(i).getElojegyzes_ido());
         viewHolder.tv_upcoming_id.setText(android.get(i).getSzemely_id());
-        viewHolder.tv_upcoming_id.setVisibility(View.INVISIBLE);
     }
 
     @Override

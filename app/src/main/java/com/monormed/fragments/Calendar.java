@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.monormed.Constants;
 import com.monormed.Interface;
@@ -42,16 +43,14 @@ import static android.support.design.widget.Snackbar.LENGTH_LONG;
  */
 public class Calendar extends Fragment {
 
-    MaterialCalendarView calendarView;
-    int year, month, day, x;
+    int year, month, day;
     SharedPreferences pref;
     RecyclerView calendar_rv;
-    TextView month_view, week_view;
     String datepick, unique_id;
     java.util.Calendar cal;
-    LinearLayout calendarheader;
     com.monormed.adapters.UpComingList adapter_ul;
     SwipeRefreshLayout calendar_refresh;
+    TextView selected_date;
 
 
     public Calendar() {
@@ -66,66 +65,25 @@ public class Calendar extends Fragment {
         View calendar = inflater.inflate(R.layout.fragment_calendar, container, false);
         pref=getActivity().getPreferences(0);
         unique_id = pref.getString(Constants.UNIQUE_ID,"");
-        x=0;
 
-        calendarheader = (LinearLayout) calendar.findViewById(R.id.calendar_header);
-        month_view = (TextView) calendar.findViewById(R.id.month_view);
-        week_view= (TextView) calendar.findViewById(R.id.week_view);
-        calendarView = (MaterialCalendarView) calendar.findViewById(R.id.calendarview);
         calendar_rv = (RecyclerView) calendar.findViewById(R.id.calendar_rv);
         calendar_refresh = (SwipeRefreshLayout) calendar.findViewById(R.id.calendar_refresh);
+        selected_date = (TextView) calendar.findViewById(R.id.selected_date);
 
         cal = java.util.Calendar.getInstance();
-        calendarView.setDateSelected(cal, true);
-
-        year = calendarView.getSelectedDate().getYear();
-        month = calendarView.getSelectedDate().getMonth()+1;
-        day = calendarView.getSelectedDate().getDay();
+        year = cal.get(java.util.Calendar.YEAR);
+        month = cal.get(java.util.Calendar.MONTH)+1;
+        day = cal.get(java.util.Calendar.DAY_OF_MONTH);
         datepick = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
 
-        calendarheader.setVisibility(View.GONE);
+        selected_date.setText(String.valueOf(datepick));
 
-        week_view.setTextColor(getResources().getColor(R.color.colorPrimaryDark, getActivity().getTheme()));
-        month_view.setTextColor(getResources().getColor(R.color.colorGrey, getActivity().getTheme()));
-        calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
-
-        week_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendarheader.setVisibility(View.GONE);
-                month_view.setTextColor(getResources().getColor(R.color.colorGrey, getActivity().getTheme()));
-                week_view.setTextColor(getResources().getColor(R.color.colorPrimaryDark, getActivity().getTheme()));
-                calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
-                x=1;
-            }
-        });
-
-        month_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendarheader.setVisibility(View.VISIBLE);
-                month_view.setTextColor(getResources().getColor(R.color.colorPrimaryDark, getActivity().getTheme()));
-                week_view.setTextColor(getResources().getColor(R.color.colorGrey, getActivity().getTheme()));
-                calendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
-                x=0;
-            }
-        });
+        Toast.makeText(getContext(), String.valueOf(datepick),Toast.LENGTH_LONG).show();
 
         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getActivity().getApplicationContext());
 
         calendar_rv.setLayoutManager(layoutManager1);
         loadJSON(unique_id,datepick);
-
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                year = calendarView.getSelectedDate().getYear();
-                month = calendarView.getSelectedDate().getMonth()+1;
-                day = calendarView.getSelectedDate().getDay();
-                datepick = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
-                loadJSON(unique_id,datepick);
-            }
-        });
 
 
         calendar_rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -137,13 +95,6 @@ public class Calendar extends Fragment {
                 } else {
                     getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
                     getActivity().findViewById(R.id.add_container).setVisibility(View.GONE);
-                    if(x==0) {
-                        x = 1;
-                        calendarheader.setVisibility(View.GONE);
-                        month_view.setTextColor(getResources().getColor(R.color.colorGrey, getActivity().getTheme()));
-                        week_view.setTextColor(getResources().getColor(R.color.colorPrimaryDark, getActivity().getTheme()));
-                        calendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
-                    }
                 }
                 super.onScrollStateChanged(recyclerView, newState);
             }

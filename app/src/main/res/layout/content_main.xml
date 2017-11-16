@@ -67,35 +67,37 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_search"
                         android:tint="@color/colorPrimary"
-                        android:scaleY="0.85"
-                        android:scaleX="0.85"/>
+                        android:scaleY="0.8"
+                        android:scaleX="0.8"/>
                     <ImageView
                         android:id="@+id/user_menu"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_menu_more"
                         android:tint="@color/colorPrimary"
-                        android:scaleY="0.9"
-                        android:scaleX="0.9"/>
+                        android:scaleY="0.85"
+                        android:scaleX="0.85"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/search_container"
                     android:visibility="gone"
+                    android:background="@drawable/search_background"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="12dp">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="2dp">
                     <EditText
                         android:id="@+id/et_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorGrey"
                         android:textColorHint="@color/colorGrey"
                         android:layout_weight="1"
                         android:paddingRight="8dp"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="14dp"
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
                         android:hint="Keresés"/>
@@ -104,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_close"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorGrey"
                         android:paddingRight="4dp"
                         android:scaleX="0.9"
                         android:scaleY="0.9"/>
@@ -143,7 +145,7 @@
         android:layout_height="wrap_content"
         android:tint="@color/colorGrey"
         android:src="@drawable/ic_add"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="16dp"
         app:fabSize="normal"/>
     <LinearLayout
