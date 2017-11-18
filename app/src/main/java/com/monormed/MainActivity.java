@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btn_addevent= (ImageView) findViewById(R.id.btn_addevent);
         search_close = (ImageView) findViewById(R.id.close_search);
         btn_search = (ImageView) findViewById(R.id.btn_search);
-        btn_usermenu = (ImageView) findViewById(R.id.user_menu);
+        btn_usermenu = (ImageView) findViewById(R.id.btn_usermenu);
         add_container.setVisibility(View.GONE);
         et_search.setActivated(false);
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         btn_usermenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu usermenu= new PopupMenu(MainActivity.this,btn_usermenu);
+                PopupMenu usermenu = new PopupMenu(MainActivity.this,btn_usermenu);
                 usermenu.getMenuInflater().inflate(R.menu.menu_user,usermenu.getMenu());
                 usermenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+        homeviewPager.setOffscreenPageLimit(3);
 
         btn_addpatient.setOnClickListener(new View.OnClickListener() {
             @Override

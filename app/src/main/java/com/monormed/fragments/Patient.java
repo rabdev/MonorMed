@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.BaseInputConnection;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +39,13 @@ public class Patient extends Fragment {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     TextView tv_patient_name;
     String patientname, szemely_id;
-    PatientLog patientLog;
     Bundle data;
-    int pos;
+    ProgressBar pl_progressbar;
     ImageView patient_back, patient_addevent, patient_addtest, patient_close_edit, patient_save_edit;
+    PatientLogDiag patientLogDiag;
+    PatientLogLelet patientLogLelet;
+    PatientLogAnam patientLogAnam;
+    int pos;
 
     public Patient() {
         // Required empty public constructor
@@ -68,6 +72,7 @@ public class Patient extends Fragment {
         patient_addtest = (ImageView) patient.findViewById(R.id.patient_addtest);
         patient_close_edit = (ImageView) patient.findViewById(R.id.patient_close_edit);
         patient_save_edit = (ImageView) patient.findViewById(R.id.patient_save_edit);
+        pl_progressbar = (ProgressBar) patient.findViewById(R.id.pl_progressbar);
 
         patient_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +86,6 @@ public class Patient extends Fragment {
         patientviewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(patientviewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
         tabLayout.clearOnTabSelectedListeners();
 
         LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
@@ -101,7 +105,7 @@ public class Patient extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                pos =position;
+                pos=position;
                 patient_addevent.setVisibility(View.VISIBLE);
                 patient_addtest.setVisibility(View.VISIBLE);
                 patient_back.setVisibility(View.VISIBLE);
@@ -112,16 +116,79 @@ public class Patient extends Fragment {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                    patientLog.hideRVPL();
-                    patientLog.showProgressBarPL();
+                    showProgressBarPL();
+                    if (patientLogAnam!=null){
+                        patientLogAnam.hideRVPL();
+                    }
+                    if (patientLogDiag!=null){
+                        patientLogDiag.hideRVPL();
+                    }
+                    if (patientLogLelet!=null){
+                        patientLogLelet.hideRVPL();
+                    }
+
                     //patientLog.loadPatientLog();
-                } else if (state == ViewPager.SCROLL_STATE_IDLE){
-                    if (pos!=3){
-                        patientLog.loadPatientLog(szemely_id, pos);
+                } else if (state==ViewPager.SCROLL_STATE_IDLE){
+                    if (pos==0){
+                        patientLogDiag.loadDIAG(szemely_id);
+                    } else if (pos==1) {
+                        patientLogAnam.loadANAM(szemely_id);
+                    } else if (pos==2){
+                        patientLogLelet.loadLELET(szemely_id);
+                    } else if (pos==3){
+                        hideProgressBarPL();
                     }
                 }
             }
         });
+
+        /*tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition()==0){
+                    patientLogDiag.hideRVPL();
+                    patientLogDiag.loadDIAG(szemely_id);
+                } else if (tab.getPosition()==1) {
+                    patientLogAnam.hideRVPL();
+                    patientLogAnam.loadANAM(szemely_id);
+                } else if (tab.getPosition()==2){
+                    patientLogLelet.hideRVPL();
+                    patientLogLelet.loadLELET(szemely_id);
+                } else if (tab.getPosition()==3){
+                    hideProgressBarPL();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                showProgressBarPL();
+                if (patientLogAnam!=null){
+                    patientLogAnam.hideRVPL();
+                }
+                if (patientLogDiag!=null){
+                    patientLogDiag.hideRVPL();
+                }
+                if (patientLogLelet!=null){
+                    patientLogLelet.hideRVPL();
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition()==0){
+                    patientLogDiag.hideRVPL();
+                    patientLogDiag.loadDIAG(szemely_id);
+                } else if (tab.getPosition()==1) {
+                    patientLogAnam.hideRVPL();
+                    patientLogAnam.loadANAM(szemely_id);
+                } else if (tab.getPosition()==2){
+                    patientLogLelet.hideRVPL();
+                    patientLogLelet.loadLELET(szemely_id);
+                } else if (tab.getPosition()==3){
+                    hideProgressBarPL();
+                }
+            }
+        });*/
 
         tv_patient_name.setText(patientname);
 
@@ -139,25 +206,22 @@ public class Patient extends Fragment {
             switch (position) {
                 case 0:
                     data=new Bundle();
-                    patientLog = new PatientLog();
-                    data.putInt("page",position);
+                    patientLogDiag = new PatientLogDiag();
                     data.putString("id",szemely_id);
-                    patientLog.setArguments(data);
-                    return patientLog;
+                    patientLogDiag.setArguments(data);
+                    return patientLogDiag;
                 case 1:
                     data=new Bundle();
-                    patientLog = new PatientLog();
-                    data.putInt("page",position);
+                    patientLogAnam = new PatientLogAnam();
                     data.putString("id",szemely_id);
-                    patientLog.setArguments(data);
-                    return patientLog;
+                    patientLogAnam.setArguments(data);
+                    return patientLogAnam;
                 case 2:
                     data=new Bundle();
-                    patientLog = new PatientLog();
-                    data.putInt("page",position);
+                    patientLogLelet = new PatientLogLelet();
                     data.putString("id",szemely_id);
-                    patientLog.setArguments(data);
-                    return patientLog;
+                    patientLogLelet.setArguments(data);
+                    return patientLogLelet;
                 case 3:
                     PatientData patientData = new PatientData();
                     patientData.loadPatientData(szemely_id);
@@ -223,4 +287,11 @@ public class Patient extends Fragment {
         szemely_id = patient_id;
         return szemely_id;
     }
+    public void showProgressBarPL (){
+        pl_progressbar.setVisibility(View.VISIBLE);
+    }
+    public void hideProgressBarPL (){
+        pl_progressbar.setVisibility(View.GONE);
+    }
+
 }

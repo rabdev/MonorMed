@@ -3,6 +3,7 @@ package com.monormed;
 import com.monormed.datastreams.Anamnezis;
 import com.monormed.datastreams.PatientList;
 import com.monormed.datastreams.PatientLog;
+import com.monormed.datastreams.TajType;
 import com.monormed.datastreams.UpComingList;
 import com.monormed.datastreams.User;
 
@@ -17,8 +18,8 @@ public class ServerRequest {
     private UpComingList upComingList;
     private PatientLog patientLog;
     private Anamnezis anamnezis;
-    /*private Elojegyzes elojegy;
-    private TajType tajType;*/
+    //private Elojegyzes elojegy;
+    private TajType tajType;
 
     public void setOperation(String operation) {
         this.operation = operation;

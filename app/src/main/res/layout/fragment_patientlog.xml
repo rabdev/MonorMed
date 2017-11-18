@@ -1,9 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.monormed.fragments.PatientLog">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/patientlog_recyclerview"
@@ -13,25 +11,13 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <ProgressBar
-        android:id="@+id/pl_progressbar"
-        style="@style/CustomProgressBar"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="-7dp"
-        android:indeterminate="true"
-        android:progressTint="@color/colorBackground"
-        android:indeterminateTintMode="src_atop"/>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/patientlog_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:fabSize="normal"
         android:src="@drawable/ic_add"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:tint="@color/colorBackground"
         app:backgroundTint="@color/colorBlue"/>

@@ -3,8 +3,8 @@ package com.monormed.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.monormed.Interface;
 import com.monormed.Operations;
 import com.monormed.R;
 import com.monormed.ServerRequest;
 import com.monormed.ServerResponse;
+import com.monormed.datastreams.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,18 +34,17 @@ import static android.support.design.widget.Snackbar.LENGTH_LONG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PatientLog extends Fragment {
+public class PatientLogLelet extends Fragment {
 
+    View patientloglelet;
     SharedPreferences pref;
     RecyclerView patientlog_rv;
     String szemely_id;
     com.monormed.adapters.PatientLog adapter_plog;
-    View patientlog;
     ProgressBar pl_progressbar;
     FloatingActionButton patientlog_add;
 
-
-    public PatientLog() {
+    public PatientLogLelet() {
         // Required empty public constructor
     }
 
@@ -52,54 +52,26 @@ public class PatientLog extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        patientlog = inflater.inflate(R.layout.fragment_patientlog, container, false);
+        patientloglelet = inflater.inflate(R.layout.fragment_patientlog, container, false);
         pref = getActivity().getPreferences(0);
 
         szemely_id = getArguments().getString("id");
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        pl_progressbar = (ProgressBar) patientlog.findViewById(R.id.pl_progressbar);
-        patientlog_rv= (RecyclerView) patientlog.findViewById(R.id.patientlog_recyclerview);
-        patientlog_add = (FloatingActionButton) patientlog.findViewById(R.id.patientlog_add);
+        pl_progressbar = (ProgressBar) getParentFragment().getView().findViewById(R.id.pl_progressbar);
+        patientlog_rv= (RecyclerView) patientloglelet.findViewById(R.id.patientlog_recyclerview);
+        patientlog_add = (FloatingActionButton) patientloglelet.findViewById(R.id.patientlog_add);
 
         patientlog_rv.setLayoutManager(layoutManager);
 
-        if (getArguments().getInt("page")==0){
-            pl_progressbar.setVisibility(View.VISIBLE);
-            hideRVPL();
-            loadJSON(szemely_id,Operations.PATIENT_LOG_DIAG);
-        }
+        loadLELET(szemely_id);
 
-        patientlog_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getArguments().getInt("page")==0){
-                    Toast.makeText(getContext(),"Diagnózis felvétele... Working on it...", Toast.LENGTH_LONG).show();
-                } else if (getArguments().getInt("page")==1){
-                    Toast.makeText(getContext(),"Anamnézis felvétele... Working on it...", Toast.LENGTH_LONG).show();
-                } else if (getArguments().getInt("page")==2){
-                    Toast.makeText(getContext(),"Lelet felvétele... Working on it...", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
-        return patientlog;
+        return patientloglelet;
     }
 
-    public void loadPatientLog(String id, int position){
-        szemely_id = id;
-        if (position==0){
-            loadJSON(szemely_id,Operations.PATIENT_LOG_DIAG);
-        } else if(position==1){
-            loadJSON(szemely_id,Operations.PATIENT_LOG_ANAM);
-        } else if(position==2){
-            loadJSON(szemely_id,Operations.PATIENT_LOG_LELET);
-        }
-    }
-
-    private void loadJSON(String szemely_id, String operation){
+    public void loadLELET(String szemely_id){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Operations.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,7 +82,7 @@ public class PatientLog extends Fragment {
         com.monormed.datastreams.PatientLog patientLog = new com.monormed.datastreams.PatientLog();
         patientLog.setSzemely_id(szemely_id);
         ServerRequest request = new ServerRequest();
-        request.setOperation(operation);
+        request.setOperation(Operations.PATIENT_LOG_LELET);
         request.setPatientLog(patientLog);
         Call<ServerResponse> response = loginInterface.operation(request);
 
@@ -120,7 +92,7 @@ public class PatientLog extends Fragment {
 
                 ServerResponse resp = response.body();
                 ArrayList<com.monormed.datastreams.PatientLog> data = new ArrayList<>(Arrays.asList(resp.getPatientLog()));
-                adapter_plog=new com.monormed.adapters.PatientLog(data, PatientLog.this);
+                adapter_plog=new com.monormed.adapters.PatientLog(data, PatientLogLelet.this);
                 patientlog_rv.setAdapter(adapter_plog);
                 adapter_plog.notifyDataSetChanged();
                 hideProgressBarPL();
@@ -148,4 +120,5 @@ public class PatientLog extends Fragment {
 
     public void showRVPL(){patientlog_rv.setVisibility(View.VISIBLE);
     }
+
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.monormed.Interface;
@@ -37,8 +38,7 @@ public class PatientData extends Fragment {
     SharedPreferences pref;
     EditText szemelynev, taj, nem, szulido, szulhely, szulnev, anyja_neve, orszag, irszam, varos, utca, telefon, email, megjegyzes;
     LinearLayout cim_orszag;
-    FloatingActionButton patientdata_edit;
-    ImageView patient_edit_close, patient_edit_save;
+    ImageView patient_edit_close, patient_edit_save, patientdata_edit;
 
     public PatientData() {
         // Required empty public constructor
@@ -55,7 +55,7 @@ public class PatientData extends Fragment {
 
         patient_edit_close = (ImageView) getParentFragment().getView().findViewById(R.id.patient_close_edit);
         patient_edit_save = (ImageView) getParentFragment().getView().findViewById(R.id.patient_save_edit);
-        patientdata_edit = (FloatingActionButton) patientdata.findViewById(R.id.patientdata_edit);
+        patientdata_edit = (ImageView) patientdata.findViewById(R.id.patientdata_edit);
         szemelynev = (EditText) patientdata.findViewById(R.id.patient_szemelynev);
         taj = (EditText) patientdata.findViewById(R.id.patient_taj);
         nem = (EditText) patientdata.findViewById(R.id.patient_nem);

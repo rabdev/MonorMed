@@ -3,6 +3,7 @@ package com.monormed.adapters;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -39,10 +40,10 @@ public class PatientLog extends RecyclerView.Adapter<PatientLog.ViewHolder> {
     View view;
     int x;
     private ArrayList<com.monormed.datastreams.PatientLog> android;
-    private com.monormed.fragments.PatientLog fragment;
+    private Fragment fragment;
 
 
-    public PatientLog(ArrayList<com.monormed.datastreams.PatientLog> android, com.monormed.fragments.PatientLog fragment) {
+    public PatientLog(ArrayList<com.monormed.datastreams.PatientLog> android, Fragment fragment) {
         this.fragment = fragment;
         this.android = android;
     }

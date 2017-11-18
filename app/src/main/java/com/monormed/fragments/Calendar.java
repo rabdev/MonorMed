@@ -1,6 +1,8 @@
 package com.monormed.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,14 +47,18 @@ import static android.support.design.widget.Snackbar.LENGTH_LONG;
  */
 public class Calendar extends Fragment {
 
-    int year, month, day;
+    int year, month, day, day1, day2;
     SharedPreferences pref;
     RecyclerView calendar_rv;
     String datepick, unique_id;
     java.util.Calendar cal;
     com.monormed.adapters.UpComingList adapter_ul;
     SwipeRefreshLayout calendar_refresh;
-    TextView selected_date;
+    TextView selected_date, selected_date1, selected_date2;
+    View dialogdp;
+    DatePicker datePicker;
+    AlertDialog dialog;
+    ImageView btn_datepick;
 
 
     public Calendar() {
@@ -69,21 +77,68 @@ public class Calendar extends Fragment {
         calendar_rv = (RecyclerView) calendar.findViewById(R.id.calendar_rv);
         calendar_refresh = (SwipeRefreshLayout) calendar.findViewById(R.id.calendar_refresh);
         selected_date = (TextView) calendar.findViewById(R.id.selected_date);
+        selected_date1 = (TextView) calendar.findViewById(R.id.selected_date1);
+        selected_date2 = (TextView) calendar.findViewById(R.id.selected_date2);
+        btn_datepick = (ImageView) calendar.findViewById(R.id.btn_datepick);
 
         cal = java.util.Calendar.getInstance();
         year = cal.get(java.util.Calendar.YEAR);
         month = cal.get(java.util.Calendar.MONTH)+1;
         day = cal.get(java.util.Calendar.DAY_OF_MONTH);
+        day1 = cal.get(java.util.Calendar.DAY_OF_MONTH)+1;
+        day2 = cal.get(java.util.Calendar.DAY_OF_MONTH)+2;
         datepick = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
 
         selected_date.setText(String.valueOf(datepick));
+        selected_date.setTextColor(getResources().getColor(R.color.colorPrimaryDark,getActivity().getTheme()));
 
-        Toast.makeText(getContext(), String.valueOf(datepick),Toast.LENGTH_LONG).show();
+        selected_date1.setText(String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day1));
+        selected_date2.setText(String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day2));
+
+        selected_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadJSON(unique_id, selected_date.getText().toString());
+                datepick = selected_date.getText().toString();
+                selected_date1.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date2.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date.setTextColor(getResources().getColor(R.color.colorPrimaryDark,getActivity().getTheme()));
+            }
+        });
+
+        selected_date1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadJSON(unique_id, selected_date1.getText().toString());
+                datepick = selected_date1.getText().toString();
+                selected_date.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date2.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date1.setTextColor(getResources().getColor(R.color.colorPrimaryDark,getActivity().getTheme()));
+            }
+        });
+
+        selected_date2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadJSON(unique_id, selected_date2.getText().toString());
+                datepick = selected_date2.getText().toString();
+                selected_date.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date1.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date2.setTextColor(getResources().getColor(R.color.colorPrimaryDark,getActivity().getTheme()));
+            }
+        });
 
         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getActivity().getApplicationContext());
 
         calendar_rv.setLayoutManager(layoutManager1);
         loadJSON(unique_id,datepick);
+
+        btn_datepick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePicker();
+            }
+        });
 
 
         calendar_rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -154,4 +209,37 @@ public class Calendar extends Fragment {
             }
         });
     }
+
+    private void showDatePicker () {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = (LayoutInflater.from(getContext()));
+        dialogdp = inflater.inflate(R.layout.dialog_datepicker, null);
+        datePicker = (DatePicker) dialogdp.findViewById(R.id.datepicker);
+        datePicker.setFirstDayOfWeek(java.util.Calendar.MONDAY);
+
+        builder.setView(dialogdp);
+
+        builder.setPositiveButton("Mentés", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selected_date2.setText(datePicker.getYear()+"-"+(datePicker.getMonth()+1)+"-"+datePicker.getDayOfMonth());
+                datepick = datePicker.getYear()+"-"+(datePicker.getMonth()+1)+"-"+datePicker.getDayOfMonth();
+                selected_date.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date1.setTextColor(getResources().getColor(R.color.colorGrey,getActivity().getTheme()));
+                selected_date2.setTextColor(getResources().getColor(R.color.colorPrimaryDark,getActivity().getTheme()));
+                loadJSON(unique_id,datePicker.getYear()+"-"+(datePicker.getMonth()+1)+"-"+datePicker.getDayOfMonth() );
+
+            }
+        });
+        builder.setNegativeButton("Bezárás", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+
+    }
+
 }

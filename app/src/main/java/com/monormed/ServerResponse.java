@@ -3,6 +3,7 @@ package com.monormed;
 import com.monormed.datastreams.Anamnezis;
 import com.monormed.datastreams.PatientList;
 import com.monormed.datastreams.PatientLog;
+import com.monormed.datastreams.TajType;
 import com.monormed.datastreams.UpComingList;
 import com.monormed.datastreams.User;
 
@@ -56,11 +57,11 @@ public class ServerResponse {
 
     public Doctors[] getDoctorList() {
         return doctorList;
-    }
+    }*/
 
     private TajType[] taj_tipus;
 
     public TajType[] getTajType(){
         return taj_tipus;
-    }*/
+    }
 }
