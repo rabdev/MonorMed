@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.monormed.Constants;
 import com.monormed.MainActivity;
 import com.monormed.R;
+import com.monormed.fragments.AddEvent;
 import com.monormed.fragments.Patient;
 
 import java.util.ArrayList;
@@ -53,12 +55,14 @@ public class PatientList extends RecyclerView.Adapter<PatientList.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_my_patient_name, tv_my_patient_id;
         private LinearLayout mypatient;
+        ImageView pl_addevent, pl_addtest;
 
         public ViewHolder(View view) {
             super(view);
 
             tv_my_patient_name = (TextView) view.findViewById(R.id.my_patient_name);
             tv_my_patient_id = (TextView) view.findViewById(R.id.my_patient_id);
+            pl_addevent = (ImageView) view.findViewById(R.id.pl_addevent);
             mypatient = (LinearLayout) view.findViewById(R.id.my_patient);
             mypatient.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,6 +82,19 @@ public class PatientList extends RecyclerView.Adapter<PatientList.ViewHolder> {
                                 .commit();
                         patient.setPatientName(mypatientname);
                         patient.setPatientID(mypatientid);
+                }
+            });
+            pl_addevent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String mypatientid = tv_my_patient_id.getText().toString();
+                    AddEvent addEvent = new AddEvent();
+                    FragmentManager fragmentManager = ((FragmentActivity)view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, addEvent, addEvent.getTag())
+                            .addToBackStack("1")
+                            .commit();
+                    addEvent.loadPatientData(mypatientid);
                 }
             });
 

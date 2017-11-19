@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     FragmentManager fragmentManager;
+    Window window;
     InputMethodManager imm;
     private ViewPager homeviewPager;
     private TabLayout tabLayout;
@@ -123,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 PopupMenu usermenu = new PopupMenu(MainActivity.this,btn_usermenu);
                 usermenu.getMenuInflater().inflate(R.menu.menu_user,usermenu.getMenu());
+                usermenu.show();
                 usermenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -164,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 AddPatient addPatient = new AddPatient();
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, addPatient, addPatient.getTag())
-                        .addToBackStack(null)
+                        .addToBackStack("1")
                         .commit();
                 show_add.setVisibility(View.GONE);
             }

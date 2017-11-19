@@ -78,6 +78,7 @@ public class AddPatient extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
                     getActivity().getSupportFragmentManager().popBackStack();
+                    window = getActivity().getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
                     window.setStatusBarColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
@@ -86,6 +87,14 @@ public class AddPatient extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+        super.onPause();
     }
 
 }

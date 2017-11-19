@@ -56,7 +56,7 @@ public class Patient extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        patient= inflater.inflate(R.layout.fragment_patient, container, false);
+        patient = inflater.inflate(R.layout.fragment_patient, container, false);
 
         pref = getActivity().getPreferences(0);
         getActivity().findViewById(R.id.show_add).setVisibility(View.GONE);
@@ -88,8 +88,8 @@ public class Patient extends Fragment {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.clearOnTabSelectedListeners();
 
-        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
-        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+        LinearLayout tabStrip = ((LinearLayout) tabLayout.getChildAt(0));
+        for (int i = 0; i < tabStrip.getChildCount(); i++) {
             tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -105,7 +105,7 @@ public class Patient extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                pos=position;
+                pos = position;
                 patient_addevent.setVisibility(View.VISIBLE);
                 patient_addtest.setVisibility(View.VISIBLE);
                 patient_back.setVisibility(View.VISIBLE);
@@ -117,28 +117,42 @@ public class Patient extends Fragment {
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_DRAGGING) {
                     showProgressBarPL();
-                    if (patientLogAnam!=null){
+                    if (patientLogAnam != null) {
                         patientLogAnam.hideRVPL();
                     }
-                    if (patientLogDiag!=null){
+                    if (patientLogDiag != null) {
                         patientLogDiag.hideRVPL();
                     }
-                    if (patientLogLelet!=null){
+                    if (patientLogLelet != null) {
                         patientLogLelet.hideRVPL();
                     }
 
                     //patientLog.loadPatientLog();
-                } else if (state==ViewPager.SCROLL_STATE_IDLE){
-                    if (pos==0){
+                } else if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    if (pos == 0) {
                         patientLogDiag.loadDIAG(szemely_id);
-                    } else if (pos==1) {
+                    } else if (pos == 1) {
                         patientLogAnam.loadANAM(szemely_id);
-                    } else if (pos==2){
+                    } else if (pos == 2) {
                         patientLogLelet.loadLELET(szemely_id);
-                    } else if (pos==3){
+                    } else if (pos == 3) {
                         hideProgressBarPL();
                     }
                 }
+            }
+        });
+
+        patient_addevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddEvent addEvent = new AddEvent();
+                FragmentManager fragmentManager = getChildFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.patient_frame, addEvent, addEvent.getTag())
+                        .addToBackStack(null)
+                        .commit();
+                addEvent.setCalledFromFragment();
+                addEvent.loadPatientData(szemely_id);
             }
         });
 
@@ -205,21 +219,21 @@ public class Patient extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    data=new Bundle();
+                    data = new Bundle();
                     patientLogDiag = new PatientLogDiag();
-                    data.putString("id",szemely_id);
+                    data.putString("id", szemely_id);
                     patientLogDiag.setArguments(data);
                     return patientLogDiag;
                 case 1:
-                    data=new Bundle();
+                    data = new Bundle();
                     patientLogAnam = new PatientLogAnam();
-                    data.putString("id",szemely_id);
+                    data.putString("id", szemely_id);
                     patientLogAnam.setArguments(data);
                     return patientLogAnam;
                 case 2:
-                    data=new Bundle();
+                    data = new Bundle();
                     patientLogLelet = new PatientLogLelet();
-                    data.putString("id",szemely_id);
+                    data.putString("id", szemely_id);
                     patientLogLelet.setArguments(data);
                     return patientLogLelet;
                 case 3:
@@ -266,9 +280,12 @@ public class Patient extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
+
                     getActivity().getSupportFragmentManager().popBackStack();
                     getActivity().findViewById(R.id.show_add).setVisibility(View.VISIBLE);
                     getActivity().findViewById(R.id.add_container).setVisibility(View.GONE);
+                    window = getActivity().getWindow();
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
                     return true;
@@ -278,8 +295,17 @@ public class Patient extends Fragment {
         });
     }
 
+    @Override
+    public void onPause() {
+        getActivity().findViewById(R.id.show_add).setVisibility(View.VISIBLE);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+        super.onPause();
+    }
+
     public String setPatientName(String patient_name) {
-        patientname=patient_name;
+        patientname = patient_name;
         return patientname;
     }
 
@@ -287,10 +313,12 @@ public class Patient extends Fragment {
         szemely_id = patient_id;
         return szemely_id;
     }
-    public void showProgressBarPL (){
+
+    public void showProgressBarPL() {
         pl_progressbar.setVisibility(View.VISIBLE);
     }
-    public void hideProgressBarPL (){
+
+    public void hideProgressBarPL() {
         pl_progressbar.setVisibility(View.GONE);
     }
 
